@@ -229,6 +229,8 @@ modules.xml
 # Translations
 
 # Django stuff:
+local.py
+db.sqlite3
 
 # Flask stuff:
 
