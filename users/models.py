@@ -5,6 +5,6 @@ from users.choices import GENDER_CHOICES
 
 
 class User(AbstractUser):
-    date_of_birth = models.DateField(null=True)
-    gender = models.CharField(choices=GENDER_CHOICES)
+    birth_date = models.DateField(null=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     email = models.EmailField(unique=True)
