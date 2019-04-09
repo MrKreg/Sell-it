@@ -10,3 +10,4 @@ class User(AbstractUser):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     email = models.EmailField(unique=True)
     phone = PhoneField()
+    image = models.ImageField(upload_to='profile_img', blank=True, null=True)
