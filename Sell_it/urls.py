@@ -8,6 +8,7 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('password_reset/',
          include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('realty/', include('realty.urls', namespace='realty')),
 ]
 
 if settings.DEBUG:

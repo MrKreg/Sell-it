@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import generics
 
-# Create your views here.
+from realty.models import Realty
+from realty.serializers import RealtySerializer
+
+
+class RealtyListView(generics.ListCreateAPIView):
+    queryset = Realty.objects.all()
+    serializer_class = RealtySerializer

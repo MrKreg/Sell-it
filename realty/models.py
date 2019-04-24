@@ -21,11 +21,13 @@ class Realty(models.Model):
     owner_phone = PhoneField()
     owner_name = models.CharField(max_length=50)
     offer = models.CharField(max_length=10, choices=OFFER_TYPES_CHOICE)
-    type = models.CharField(max_length=15, choices=REALTY_TYPES_CHOICE)
     creator = models.ForeignKey('users.User', on_delete=models.CASCADE,
                                 null=True, blank=True)
     link = models.URLField(max_length=2000, unique=True, db_index=True,
                            null=True, blank=True)
+
+    def type(self):
+        return self.__class__.__name__
 
     def __str__(self):
         return self.title[:TRUNCATE_CHARS]
