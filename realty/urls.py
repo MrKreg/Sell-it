@@ -1,11 +1,13 @@
 from django.urls import path
+from rest_framework.routers import SimpleRouter
 
-from realty.views import RealtyListView
+from realty.views import RealtyViewSet
 
 __all__ = ['urlpatterns', ]
 
-app_name = 'users'
+app_name = 'realty'
 
-urlpatterns = [
-    path('', RealtyListView.as_view()),
-]
+router = SimpleRouter()
+router.register(r'default', RealtyViewSet)
+
+urlpatterns = router.urls

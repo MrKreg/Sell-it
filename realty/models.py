@@ -1,16 +1,16 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
+from polymorphic.models import PolymorphicModel
 
 from Sell_it.fields import PhoneField
-from realty.choices import (CURRENCY_CHOICE, OFFER_TYPES_CHOICE,
-                            REALTY_TYPES_CHOICE)
+from realty.choices import (CURRENCY_CHOICE, OFFER_TYPES_CHOICE)
 
 __all__ = ['Realty', 'Apartment', 'Building', ]
 
 TRUNCATE_CHARS = 30
 
 
-class Realty(models.Model):
+class Realty(PolymorphicModel):
     title = models.CharField(max_length=100)
     description = models.TextField()
     price = models.PositiveIntegerField()
@@ -25,9 +25,6 @@ class Realty(models.Model):
                                 null=True, blank=True)
     link = models.URLField(max_length=2000, unique=True, db_index=True,
                            null=True, blank=True)
-
-    def type(self):
-        return self.__class__.__name__
 
     def __str__(self):
         return self.title[:TRUNCATE_CHARS]
