@@ -5,7 +5,7 @@ from polymorphic.models import PolymorphicModel
 from Sell_it.fields import PhoneField
 from realty.choices import (CURRENCY_CHOICE, OFFER_TYPES_CHOICE)
 
-__all__ = ['Realty', 'Apartment', 'Building', ]
+__all__ = ['Realty', 'Apartment', 'Building', 'RealtyPhoto', ]
 
 TRUNCATE_CHARS = 30
 
@@ -42,4 +42,6 @@ class Building(Realty):
 
 class RealtyPhoto(models.Model):
     photo = models.ImageField(upload_to='realty_img')
-    realty = models.ForeignKey('Realty', on_delete=models.CASCADE)
+    realty = models.ForeignKey('Realty',
+                               related_name='photos',
+                               on_delete=models.CASCADE)
