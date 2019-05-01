@@ -5,7 +5,9 @@ coreschema==0.0.4
 Django==2.1.7
 django-cors-headers==2.5.2
 django-filter==2.1.0
+django-polymorphic==2.0.3
 django-rest-passwordreset==1.0.0
+django-rest-polymorphic==0.1.8
 django-rest-swagger==2.2.0
 djangorestframework==3.9.2
 djangorestframework-simplejwt==4.1.1
@@ -19,5 +21,6 @@ PyJWT==1.7.1
 pytz==2018.9
 requests==2.21.0
 simplejson==3.16.0
+six==1.12.0
 uritemplate==3.0.0
 urllib3==1.24.2
