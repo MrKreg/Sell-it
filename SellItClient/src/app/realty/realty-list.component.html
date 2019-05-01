@@ -1,0 +1,25 @@
+
+<div  class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="space-between center" >
+  <div class="h2 mt-16">Realty</div>
+</div>
+<div class="content">
+  <div class="cards" fxLayout="row">
+    <div class="fuse-card mt-20 mr-20 ml-20" *ngFor="let realty of realty$|async">
+
+      <img src="assets/images/cards/card1.jpg">
+
+      <div class="p-16">
+        <div class="h1">{{realty.title}}</div>
+      </div>
+
+      <div class="p-16 pt-0 line-height-1.75 description">
+        {{realty.description}}
+      </div>
+      <div class="price p-16">{{realty.price}} {{realty.currency}}</div>
+
+    </div>
+
+  </div>
+
+</div>
+

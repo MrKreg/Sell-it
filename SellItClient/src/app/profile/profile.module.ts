@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import {
-  MatButtonModule,
+  MatButtonModule, MatDatepickerModule,
   MatDividerModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule,
+  MatInputModule, MatNativeDateModule,
   MatTabsModule
 } from '@angular/material';
 import {SharedModule} from "../shared/shared.module";
@@ -35,6 +34,8 @@ import {ProfileRoutingModule} from "./profile-routing.module";
         MatTabsModule,
         MatFormFieldModule,
         MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
         SharedModule
     ]
 })

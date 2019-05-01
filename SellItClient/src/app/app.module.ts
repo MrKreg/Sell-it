@@ -9,14 +9,12 @@ import {CoreModule} from "./core/core.module";
 import {AlertModule} from "ngx-alerts";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
-import {LayoutComponent} from "./layout/layout.component";
 import {LayoutModule} from "./layout/layout.module";
-import { AppartmentListComponent } from './appartments/appartment-list/appartment-list.component';
+import {StaticModule} from "./static/static.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppartmentListComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -25,6 +23,7 @@ import { AppartmentListComponent } from './appartments/appartment-list/appartmen
     AuthModule,
     CoreModule,
     LayoutModule,
+    StaticModule,
     AlertModule.forRoot({maxMessages: 5, timeout: 5000, position: 'right'})
   ],
   providers: [

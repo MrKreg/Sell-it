@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {Profile} from "../models/profile/profile.model";
 
+
 @Injectable({
   providedIn:"root"
 })
@@ -25,6 +26,16 @@ export class ProfileService {
       };
       return profileModel;
     }));
+  }
+
+  public update(profile:Profile):Observable<Object>{
+    const body = {
+      username:profile.username,
+      first_name:profile.firstName,
+      last_name:profile.lastName,
+      birth_date:profile.birthDate
+    };
+    return this._http.patch(this._url+"users/profile/",body);
   }
 
 }

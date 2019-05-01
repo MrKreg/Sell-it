@@ -10,6 +10,10 @@ const routes: Routes = [
       {
         path:'profile',
         loadChildren:'../profile/profile.module#ProfileModule'
+      },
+      {
+        path:'realty',
+        loadChildren:'../realty/realty.module#RealtyModule'
       }
     ]
   }
