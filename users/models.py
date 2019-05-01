@@ -2,7 +2,10 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from Sell_it.fields import PhoneField
+from realty.models import Realty
 from users.choices import GENDER_CHOICES
+
+__all__ = ['User', ]
 
 
 class User(AbstractUser):
@@ -11,3 +14,4 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     phone = PhoneField()
     image = models.ImageField(upload_to='profile_img', blank=True, null=True)
+    liked = models.ManyToManyField(Realty, related_name='liked_realty')
