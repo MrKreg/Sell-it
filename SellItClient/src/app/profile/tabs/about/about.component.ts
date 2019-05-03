@@ -3,6 +3,8 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 
 import { fuseAnimations } from 'src/animations';
 import {Profile} from "../../../core/models/profile/profile.model";
+import {ProfileService} from "../../../core/services/profile.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector   : 'profile-about',
@@ -12,21 +14,17 @@ import {Profile} from "../../../core/models/profile/profile.model";
 })
 export class ProfileAboutComponent implements OnInit, OnDestroy
 {
-    @Input()
-    public profile:Profile;
-
-    public isEditable:boolean = false;
-
+    public profile$:Observable<Profile>;
     constructor(
+        private _profileService:ProfileService
     )
     {
 
     }
 
-
     ngOnInit(): void
     {
-
+        this.profile$ = this._profileService.getCurrentUserProfileInfo();
     }
 
     ngOnDestroy(): void
