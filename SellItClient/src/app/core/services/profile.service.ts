@@ -4,6 +4,7 @@ import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {Profile} from "../models/profile/profile.model";
+import {Utils} from "../utils";
 
 
 @Injectable({
@@ -16,25 +17,13 @@ export class ProfileService {
     this._url = environment.apiUrl;
   }
 
-  public getCurrentUserProfileInfo():Observable<Profile>{
-    return this._http.get(this._url+"users/profile/").pipe(map((x:any)=>{
-      let profileModel:Profile = {
-        ...x,
-        lastName:x.last_name,
-        firstName:x.first_name,
-        birthDate:x.birth_date
-      };
-      return profileModel;
-    }));
+  public getCurrentUserProfileInfo():Observable<Profile> {
+      return this._http.get(this._url + "users/profile/").pipe(map(json => Utils.toCamelCase(json)));
   }
+  
 
   public update(profile:Profile):Observable<Object>{
-    const body = {
-      username:profile.username,
-      first_name:profile.firstName,
-      last_name:profile.lastName,
-      birth_date:profile.birthDate
-    };
+    const body = Utils.toSnakeCase(profile);
     return this._http.patch(this._url+"users/profile/",body);
   }
 

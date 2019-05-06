@@ -1,5 +1,11 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {SignInComponent} from "./sign-in.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {SharedModule} from "../../shared/shared.module";
+import {RouterModule} from "@angular/router";
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('SignInComponent', () => {
   let component: SignInComponent;
@@ -7,9 +13,9 @@ describe('SignInComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignInComponent ]
-    })
-      .compileComponents();
+      declarations: [ SignInComponent ],
+      imports:[ReactiveFormsModule,SharedModule,RouterTestingModule,HttpClientTestingModule,NoopAnimationsModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

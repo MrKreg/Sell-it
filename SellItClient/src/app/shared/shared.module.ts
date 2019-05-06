@@ -4,7 +4,7 @@ import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {
-    MatButtonModule, MatDatepickerModule,
+    MatButtonModule, MatCheckboxModule, MatDatepickerModule,
     MatDividerModule,
     MatFormFieldModule,
     MatIconModule,
@@ -40,6 +40,7 @@ import {
       MatInputModule,
       MatDatepickerModule,
       MatNativeDateModule,
+      MatCheckboxModule
   ]
 })
 export class SharedModule{}
