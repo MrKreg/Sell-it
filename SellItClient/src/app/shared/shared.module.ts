@@ -4,12 +4,13 @@ import {CommonModule} from "@angular/common";
 import {ReactiveFormsModule} from "@angular/forms";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {
-    MatButtonModule, MatCheckboxModule, MatDatepickerModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule, MatNativeDateModule,
-    MatTabsModule
+  MatBadgeModule,
+  MatButtonModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule,
+  MatDividerModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule, MatNativeDateModule,
+  MatTabsModule
 } from "@angular/material";
 
 @NgModule({
@@ -26,6 +27,9 @@ import {
       MatInputModule,
       MatDatepickerModule,
       MatNativeDateModule,
+      MatBadgeModule,
+      MatChipsModule,
+      FlexLayoutModule
   ],
   exports: [
       NgxSpinnerModule,
@@ -40,7 +44,10 @@ import {
       MatInputModule,
       MatDatepickerModule,
       MatNativeDateModule,
-      MatCheckboxModule
+      MatCheckboxModule,
+      MatBadgeModule,
+      MatChipsModule,
+      FlexLayoutModule
   ]
 })
 export class SharedModule{}

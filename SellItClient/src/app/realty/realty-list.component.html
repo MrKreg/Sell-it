@@ -1,14 +1,14 @@
-
-<div  class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="space-between center" >
+<div class="header mat-primary-bg p-24 h-100" fxLayout="row" fxLayoutAlign="space-between center">
   <div class="h2 mt-16">Realty</div>
 </div>
 <div class="content">
   <div class="cards" fxLayout="row">
-    <div class="fuse-card mt-20 mr-20 ml-20" *ngFor="let realty of realty$|async">
+    <div class="fuse-card mt-20 mr-20 ml-20" *ngFor="let realty of realty$|async" matBadge="$"
+         matBadgePosition="after" matBadgeColor="warn" matBadgeSize="large" [matBadgeDisabled]="realty.offer != 'Sale'">
 
-      <img src="assets/images/cards/card1.jpg">
+      <img src="assets/images/cards/card1.jpg" [routerLink]="['details',realty.id]">
 
-      <div class="p-16">
+      <div class="p-16" [routerLink]="['details',realty.id]">
         <div class="h1">{{realty.title}}</div>
       </div>
 
