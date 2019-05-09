@@ -17,4 +17,8 @@ export class RealtyService {
   public getAll():Observable<Realty[]>{
     return this._http.get<Realty[]>(this._url+"realty/default/");
   }
+
+  public getById(id:number):Observable<RelatyDetails>{
+    return this._http.get<RelatyDetails>(this._url+`realty/default/${id}`);
+  }
 }
