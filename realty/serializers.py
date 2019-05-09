@@ -44,3 +44,18 @@ class RealtyPolymorphicSerializer(PolymorphicSerializer):
         Apartment: ApartmentSerializer,
         Building: BuildingSerializer,
     }
+
+
+class RealtyListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Realty
+        fields = ['id', 'title', 'description', 'price', 'currency', 'offer',
+                  'rooms']
+
+
+class RealtyListPolymorphicSerializer(PolymorphicSerializer):
+    model_serializer_mapping = {
+        Realty: RealtyListSerializer,
+        Apartment: RealtyListSerializer,
+        Building: RealtyListSerializer,
+    }
