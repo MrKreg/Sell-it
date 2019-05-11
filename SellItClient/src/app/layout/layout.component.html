@@ -1,0 +1,74 @@
+
+<!--&lt;!&ndash;    <fuse-sidebar name="chatPanel" position="left" class="chat-panel left-chat-panel"&ndash;&gt;-->
+<!--&lt;!&ndash;                  lockedOpen="gt-md">&ndash;&gt;-->
+<!--&lt;!&ndash;        <chat-panel></chat-panel>&ndash;&gt;-->
+<!--&lt;!&ndash;    </fuse-sidebar>&ndash;&gt;-->
+<!--<div id="main">-->
+<div>
+  <toolbar></toolbar>
+</div>
+<div>
+  <router-outlet></router-outlet>
+</div>
+
+<!--    <div id="container-1" class="container">-->
+
+<!--        &lt;!&ndash; NAVBAR: Left &ndash;&gt;-->
+<!--&lt;!&ndash;      <fuse-sidebar name="navbar" class="navbar-fuse-sidebar"&ndash;&gt;-->
+<!--&lt;!&ndash;                    lockedOpen="gt-md">&ndash;&gt;-->
+<!--&lt;!&ndash;        <navbar class="left-navbar"></navbar>&ndash;&gt;-->
+<!--&lt;!&ndash;      </fuse-sidebar>&ndash;&gt;-->
+<!--        &lt;!&ndash; / NAVBAR: Left &ndash;&gt;-->
+
+<!--        <div id="container-2" class="container">-->
+
+<!--            &lt;!&ndash; TOOLBAR: Below fixed &ndash;&gt;-->
+<!--&lt;!&ndash;            <ng-container *ngIf="fuseConfig.layout.toolbar.position === 'below-fixed'">&ndash;&gt;-->
+<!--&lt;!&ndash;                <ng-container *ngTemplateOutlet="toolbar"></ng-container>&ndash;&gt;-->
+<!--&lt;!&ndash;            </ng-container>&ndash;&gt;-->
+<!--            &lt;!&ndash; / TOOLBAR: Below fixed &ndash;&gt;-->
+
+<!--            <div id="container-3" class="container" >-->
+
+<!--                &lt;!&ndash; TOOLBAR: Below static &ndash;&gt;-->
+<!--&lt;!&ndash;                <ng-container *ngIf="fuseConfig.layout.toolbar.position === 'below-static'">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <ng-container *ngTemplateOutlet="toolbar"></ng-container>&ndash;&gt;-->
+<!--&lt;!&ndash;                </ng-container>&ndash;&gt;-->
+<!--                &lt;!&ndash; / TOOLBAR: Below static &ndash;&gt;-->
+
+<!--                &lt;!&ndash; CONTENT &ndash;&gt;-->
+<!--                <content></content>-->
+<!--                &lt;!&ndash; / CONTENT &ndash;&gt;-->
+
+<!--                &lt;!&ndash; FOOTER: Below static &ndash;&gt;-->
+<!--              <footer ></footer>-->
+<!--                &lt;!&ndash; / FOOTER: Below static &ndash;&gt;-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; SIDE PANEL &ndash;&gt;-->
+<!--&lt;!&ndash;<ng-container *ngIf="!fuseConfig.layout.sidepanel.hidden && fuseConfig.layout.sidepanel.position === 'right'">&ndash;&gt;-->
+
+<!--&lt;!&ndash;    &lt;!&ndash; CHAT PANEL &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <fuse-sidebar name="chatPanel" position="right" class="chat-panel right-chat-panel"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                  [folded]="true" [foldedWidth]="70" [foldedAutoTriggerOnHover]="false"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                  lockedOpen="gt-md">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <chat-panel></chat-panel>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    </fuse-sidebar>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash; / CHAT PANEL &ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
+
+<!--    &lt;!&ndash; / SIDE PANEL &ndash;&gt;-->
+
+<!--&lt;!&ndash; QUICK PANEL &ndash;&gt;-->
+<!--&lt;!&ndash;<fuse-sidebar name="quickPanel" position="right" class="quick-panel">&ndash;&gt;-->
+<!--&lt;!&ndash;    <quick-panel></quick-panel>&ndash;&gt;-->
+<!--&lt;!&ndash;</fuse-sidebar>&ndash;&gt;-->
+<!--&lt;!&ndash; / QUICK PANEL &ndash;&gt;-->
+<!--<div>Layout</div>-->
+<!--<router-outlet></router-outlet>-->
+

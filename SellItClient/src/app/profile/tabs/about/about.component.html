@@ -1,0 +1,28 @@
+<div id="about" class="p-24" fxLayout="row wrap" *ngIf="profile$|async as profile">
+    <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="65">
+
+        <div class="profile-box info-box general" fxLayout="column">
+
+            <header class="mat-primary-bg" fxLayout="row" fxLayoutAlign="space-between center" >
+                <div class="title">General Information</div>
+                <button mat-raised-button class="btn-orange" [routerLink]="['edit']">Edit</button>
+            </header>
+
+            <div class="content">
+                <div class="info-line">
+                    <div class="title">Gender</div>
+                    <div class="info">{{profile?.gender}}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title">Birthday</div>
+                    <div class="info">{{profile?.birthDate}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Email</div>
+                    <div class="info">{{profile?.email}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

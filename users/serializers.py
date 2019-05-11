@@ -23,9 +23,7 @@ class AccountSerializer(serializers.ModelSerializer):
 class SignUpSerializer(AccountSerializer):
     class Meta:
         model = get_user_model()
-        fields = (
-            'username', 'email', 'first_name', 'last_name', 'birth_date',
-            'gender', 'password',)
+        fields = ('username', 'email', 'phone', 'password',)
 
 
 class ProfileSerializer(AccountSerializer):
@@ -33,4 +31,4 @@ class ProfileSerializer(AccountSerializer):
         model = get_user_model()
         fields = (
             'username', 'email', 'first_name', 'last_name', 'birth_date',
-            'gender',)
+            'gender', 'image')
