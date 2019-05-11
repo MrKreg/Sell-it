@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from users.views import SignUpView, ProfileView
+from users.views import SignUpView, ProfileView, UsernameExistsView
 
 __all__ = ['urlpatterns', ]
 
@@ -14,4 +14,5 @@ urlpatterns = [
     ])),
     path('sign-up/', SignUpView.as_view()),
     path('profile/', ProfileView.as_view()),
+    path('exists/', UsernameExistsView.as_view())
 ]
