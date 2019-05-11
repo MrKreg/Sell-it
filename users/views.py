@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 
 from users.serializers import SignUpSerializer, ProfileSerializer
 
@@ -18,3 +19,11 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class UsernameExistsView(generics.RetrieveAPIView):
+    def get(self, request, *args, **kwargs):
+        if get_user_model().objects.filter(
+                username=self.request.data['username']):
+            return Response({'is_exists': True})
+        return Response({'is_exists': False})
