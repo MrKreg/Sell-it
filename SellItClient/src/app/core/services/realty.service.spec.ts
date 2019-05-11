@@ -25,6 +25,7 @@ describe('Service: RealtyService', () => {
     it('should get realty list',fakeAsync(()=>{
         const realtyMock:Realty[] = [
             {
+                id:1,
                 title:"Realty",
                 description:"Description",
                 price:2123,
@@ -32,6 +33,7 @@ describe('Service: RealtyService', () => {
                 offer:"Offer"
             },
             {
+                id:2,
                 title:"Realty 2",
                 description:"Description 2",
                 price:2111,
