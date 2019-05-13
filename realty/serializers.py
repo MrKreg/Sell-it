@@ -1,13 +1,7 @@
 from rest_framework import serializers
 from rest_polymorphic.serializers import PolymorphicSerializer
 
-from realty.models import Apartment, Building, Realty, RealtyPhoto
-
-
-class RealtyPhotoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RealtyPhoto
-        fields = ['photo', ]
+from realty.models import Apartment, Building, Realty
 
 
 class RealtySerializer(serializers.ModelSerializer):
@@ -17,25 +11,15 @@ class RealtySerializer(serializers.ModelSerializer):
 
 
 class ApartmentSerializer(serializers.ModelSerializer):
-    photos = RealtyPhotoSerializer(many=True)
-
     class Meta:
         model = Apartment
-        fields = (
-            'title', 'description', 'price', 'currency', 'area', 'flooring',
-            'rooms', 'owner_phone', 'owner_name', 'offer', 'creator', 'link',
-            'floor', 'kitchen_area', 'photos')
+        fields = '__all__'
 
 
 class BuildingSerializer(serializers.ModelSerializer):
-    photos = RealtyPhotoSerializer(many=True)
-
     class Meta:
         model = Building
-        fields = (
-            'title', 'description', 'price', 'currency', 'area', 'flooring',
-            'rooms', 'owner_phone', 'owner_name', 'offer', 'creator', 'link',
-            'field_area', 'photos')
+        fields = '__all__'
 
 
 class RealtyPolymorphicSerializer(PolymorphicSerializer):
