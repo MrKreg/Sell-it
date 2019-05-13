@@ -33,8 +33,7 @@ class RealtyPolymorphicSerializer(PolymorphicSerializer):
 class RealtyListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Realty
-        fields = ['id', 'title', 'description', 'price', 'currency', 'offer',
-                  'rooms']
+        fields = ['id', 'title', 'description', 'price', 'currency', 'offer', ]
 
 
 class RealtyListPolymorphicSerializer(PolymorphicSerializer):
