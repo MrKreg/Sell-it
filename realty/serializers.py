@@ -18,24 +18,32 @@ class RealtySerializer(serializers.ModelSerializer):
 
 class ApartmentSerializer(serializers.ModelSerializer):
     photos = RealtyPhotoSerializer(many=True)
+    liked = serializers.SerializerMethodField()
 
     class Meta:
         model = Apartment
         fields = (
-            'title', 'description', 'price', 'currency', 'area', 'flooring',
-            'rooms', 'owner_phone', 'owner_name', 'offer', 'creator', 'link',
-            'floor', 'kitchen_area', 'photos')
+            'id', 'title', 'description', 'price', 'currency', 'area',
+            'kitchen_area', 'floor', 'flooring', 'rooms', 'owner_phone',
+            'owner_name', 'offer', 'creator', 'link', 'photos', 'liked')
+
+    def get_liked(self, obj):
+        return obj.user_set.filter(id=self.context['request'].user.id).exists()
 
 
 class BuildingSerializer(serializers.ModelSerializer):
     photos = RealtyPhotoSerializer(many=True)
+    liked = serializers.SerializerMethodField()
 
     class Meta:
         model = Building
         fields = (
-            'title', 'description', 'price', 'currency', 'area', 'flooring',
-            'rooms', 'owner_phone', 'owner_name', 'offer', 'creator', 'link',
-            'field_area', 'photos')
+            'id', 'title', 'description', 'price', 'currency', 'area',
+            'field_area', 'flooring', 'rooms', 'owner_phone', 'owner_name',
+            'offer', 'creator', 'link', 'photos')
+
+    def get_liked(self, obj):
+        return obj.user_set.filter(id=self.context['request'].user.id).exists()
 
 
 class RealtyPolymorphicSerializer(PolymorphicSerializer):
@@ -47,9 +55,15 @@ class RealtyPolymorphicSerializer(PolymorphicSerializer):
 
 
 class RealtyListSerializer(serializers.ModelSerializer):
+    liked = serializers.SerializerMethodField()
+
     class Meta:
         model = Realty
-        fields = ['id', 'title', 'description', 'price', 'currency', 'offer', ]
+        fields = (
+            'id', 'title', 'description', 'price', 'currency', 'offer', 'liked')
+
+    def get_liked(self, obj):
+        return obj.user_set.filter(id=self.context['request'].user.id).exists()
 
 
 class RealtyListPolymorphicSerializer(PolymorphicSerializer):

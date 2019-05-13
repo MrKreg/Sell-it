@@ -14,4 +14,4 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     phone = PhoneField()
     image = models.ImageField(upload_to='profile_img', blank=True, null=True)
-    liked = models.ManyToManyField(Realty, related_name='liked_realty')
+    liked = models.ManyToManyField(Realty)

@@ -22,6 +22,8 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
 
 class UsernameExistsView(generics.RetrieveAPIView):
+    permission_classes = (AllowAny, )
+
     def get(self, request, *args, **kwargs):
         if get_user_model().objects.filter(
                 username=self.request.data['username']):
