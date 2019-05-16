@@ -11,14 +11,18 @@ class RealtyPhotoSerializer(serializers.ModelSerializer):
 
 
 class RealtySerializer(serializers.ModelSerializer):
+    photos = RealtyPhotoSerializer(many=True)
+    liked = serializers.SerializerMethodField()
+
     class Meta:
         model = Realty
         fields = '__all__'
 
+    def get_liked(self, obj):
+        return obj.user_set.filter(id=self.context['request'].user.id).exists()
 
-class ApartmentSerializer(serializers.ModelSerializer):
-    photos = RealtyPhotoSerializer(many=True)
-    liked = serializers.SerializerMethodField()
+
+class ApartmentSerializer(RealtySerializer):
 
     class Meta:
         model = Apartment
@@ -27,11 +31,8 @@ class ApartmentSerializer(serializers.ModelSerializer):
             'kitchen_area', 'floor', 'flooring', 'rooms', 'owner_phone',
             'owner_name', 'offer', 'creator', 'link', 'photos', 'liked')
 
-    def get_liked(self, obj):
-        return obj.user_set.filter(id=self.context['request'].user.id).exists()
 
-
-class BuildingSerializer(serializers.ModelSerializer):
+class BuildingSerializer(RealtySerializer):
     photos = RealtyPhotoSerializer(many=True)
     liked = serializers.SerializerMethodField()
 
@@ -40,10 +41,7 @@ class BuildingSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'title', 'description', 'price', 'currency', 'area',
             'field_area', 'flooring', 'rooms', 'owner_phone', 'owner_name',
-            'offer', 'creator', 'link', 'photos')
-
-    def get_liked(self, obj):
-        return obj.user_set.filter(id=self.context['request'].user.id).exists()
+            'offer', 'creator', 'link', 'photos', 'liked')
 
 
 class RealtyPolymorphicSerializer(PolymorphicSerializer):
