@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_polymorphic.serializers import PolymorphicSerializer
+from drf_writable_nested import WritableNestedModelSerializer
 
 from realty.models import Apartment, Building, Realty, RealtyPhoto
 
@@ -7,10 +8,10 @@ from realty.models import Apartment, Building, Realty, RealtyPhoto
 class RealtyPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = RealtyPhoto
-        fields = ['photo', ]
+        fields = ['id', 'photo', ]
 
 
-class RealtySerializer(serializers.ModelSerializer):
+class RealtySerializer(WritableNestedModelSerializer):
     photos = RealtyPhotoSerializer(many=True)
     liked = serializers.SerializerMethodField()
 
@@ -23,7 +24,6 @@ class RealtySerializer(serializers.ModelSerializer):
 
 
 class ApartmentSerializer(RealtySerializer):
-
     class Meta:
         model = Apartment
         fields = (
