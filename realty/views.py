@@ -3,6 +3,7 @@ from rest_framework import viewsets
 
 from realty.filters import RealtyFilter
 from realty.models import Realty
+from realty.pagination import RealtyPagination
 from realty.serializers import (RealtyPolymorphicSerializer,
                                 RealtyListPolymorphicSerializer)
 
@@ -11,6 +12,7 @@ class RealtyViewSet(viewsets.ModelViewSet):
     queryset = Realty.objects.all()
     serializer_class = RealtyPolymorphicSerializer
     filterset_class = RealtyFilter
+    pagination_class = RealtyPagination
 
     def get_queryset(self):
         return Realty.objects.filter(
