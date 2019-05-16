@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_polymorphic.serializers import PolymorphicSerializer
-from drf_writable_nested import WritableNestedModelSerializer
+from drf_writable_nested import NestedCreateMixin, NestedUpdateMixin, WritableNestedModelSerializer
 
 from realty.models import Apartment, Building, Realty, RealtyPhoto
 
@@ -11,7 +11,7 @@ class RealtyPhotoSerializer(serializers.ModelSerializer):
         fields = ['id', 'photo', ]
 
 
-class RealtySerializer(WritableNestedModelSerializer):
+class RealtySerializer(serializers.ModelSerializer):
     photos = RealtyPhotoSerializer(many=True)
     liked = serializers.SerializerMethodField()
 
@@ -30,6 +30,25 @@ class ApartmentSerializer(RealtySerializer):
             'id', 'title', 'description', 'price', 'currency', 'area',
             'kitchen_area', 'floor', 'flooring', 'rooms', 'owner_phone',
             'owner_name', 'offer', 'creator', 'link', 'photos', 'liked')
+
+    def create(self, validated_data):
+        photos_data = validated_data.pop('photos')
+        apartment = Apartment.objects.create(**validated_data)
+
+        for photo_data in photos_data:
+            RealtyPhoto.objects.create(realty=apartment, **photo_data)
+        return apartment
+
+    def update(self, instance, validated_data):
+        photos_data = validated_data.pop('photos')
+        photos = list(instance.photos.all())
+        instance = super().update(instance, validated_data)
+
+        for photo_data in photos_data:
+            photo = photos.pop(0)
+            photo = photo_data.get('photo', photo)
+            photo.save()
+        return instance
 
 
 class BuildingSerializer(RealtySerializer):

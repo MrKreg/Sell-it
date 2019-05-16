@@ -18,7 +18,7 @@ class Realty(PolymorphicModel):
     area = models.PositiveIntegerField()
     flooring = models.PositiveIntegerField(validators=(MaxValueValidator(100),))
     rooms = models.PositiveIntegerField(validators=(MaxValueValidator(100),))
-    owner_phone = PhoneField()
+    owner_phone = PhoneField(unique=False)
     owner_name = models.CharField(max_length=50)
     offer = models.CharField(max_length=10, choices=OFFER_TYPES_CHOICE)
     creator = models.ForeignKey('users.User', on_delete=models.CASCADE,
