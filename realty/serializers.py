@@ -1,18 +1,21 @@
+from django.db import transaction
 from rest_framework import serializers
 from rest_polymorphic.serializers import PolymorphicSerializer
-from drf_writable_nested import NestedCreateMixin, NestedUpdateMixin, WritableNestedModelSerializer
 
 from realty.models import Apartment, Building, Realty, RealtyPhoto
 
 
 class RealtyPhotoSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    photo = serializers.ImageField(required=False)
+
     class Meta:
         model = RealtyPhoto
         fields = ['id', 'photo', ]
 
 
 class RealtySerializer(serializers.ModelSerializer):
-    photos = RealtyPhotoSerializer(many=True)
+    photos = RealtyPhotoSerializer(many=True, required=False)
     liked = serializers.SerializerMethodField()
 
     class Meta:
@@ -24,6 +27,8 @@ class RealtySerializer(serializers.ModelSerializer):
 
 
 class ApartmentSerializer(RealtySerializer):
+    photos = RealtyPhotoSerializer(many=True)
+
     class Meta:
         model = Apartment
         fields = (
@@ -31,12 +36,16 @@ class ApartmentSerializer(RealtySerializer):
             'kitchen_area', 'floor', 'flooring', 'rooms', 'owner_phone',
             'owner_name', 'offer', 'creator', 'link', 'photos', 'liked')
 
+    @transaction.atomic
     def create(self, validated_data):
-        photos_data = validated_data.pop('photos')
+        photos = validated_data.pop('photos')
         apartment = Apartment.objects.create(**validated_data)
 
-        for photo_data in photos_data:
-            RealtyPhoto.objects.create(realty=apartment, **photo_data)
+        for photo in photos:
+            photo_id = photo.pop(key='id')
+            print(photo_id)
+            photo = RealtyPhoto.objects.get(id=photo_id)
+            apartment.photos.add(photo)
         return apartment
 
     def update(self, instance, validated_data):

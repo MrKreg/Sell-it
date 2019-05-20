@@ -12,6 +12,6 @@ class User(AbstractUser):
     birth_date = models.DateField(null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True)
     email = models.EmailField(unique=True)
-    phone = PhoneField()
+    phone = PhoneField(unique=True)
     image = models.ImageField(upload_to='profile_img', blank=True, null=True)
     liked = models.ManyToManyField(Realty)
