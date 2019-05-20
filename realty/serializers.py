@@ -43,20 +43,19 @@ class ApartmentSerializer(RealtySerializer):
 
         for photo in photos:
             photo_id = photo.pop(key='id')
-            print(photo_id)
             photo = RealtyPhoto.objects.get(id=photo_id)
             apartment.photos.add(photo)
         return apartment
 
+    @transaction.atomic
     def update(self, instance, validated_data):
-        photos_data = validated_data.pop('photos')
-        photos = list(instance.photos.all())
+        photos = validated_data.pop('photos')
         instance = super().update(instance, validated_data)
 
-        for photo_data in photos_data:
-            photo = photos.pop(0)
-            photo = photo_data.get('photo', photo)
-            photo.save()
+        for photo in photos:
+            photo_id = photos.pop(key='id')
+            photo = RealtyPhoto.objects.get(id=photo_id)
+            instance.photos.add(photo)
         return instance
 
 
@@ -70,6 +69,28 @@ class BuildingSerializer(RealtySerializer):
             'id', 'title', 'description', 'price', 'currency', 'area',
             'field_area', 'flooring', 'rooms', 'owner_phone', 'owner_name',
             'offer', 'creator', 'link', 'photos', 'liked')
+
+    @transaction.atomic
+    def create(self, validated_data):
+        photos = validated_data.pop('photos')
+        instance = Building.objects.create(**validated_data)
+
+        for photo in photos:
+            photo_id = photo.pop(key='id')
+            photo = RealtyPhoto.objects.get(id=photo_id)
+            instance.photos.add(photo)
+        return instance
+
+    @transaction.atomic
+    def update(self, instance, validated_data):
+        photos = validated_data.pop('photos')
+        instance = super().update(instance, validated_data)
+
+        for photo in photos:
+            photo_id = photos.pop(key='id')
+            photo = RealtyPhoto.objects.get(id=photo_id)
+            instance.photos.add(photo)
+        return instance
 
 
 class RealtyPolymorphicSerializer(PolymorphicSerializer):
