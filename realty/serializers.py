@@ -53,7 +53,7 @@ class ApartmentSerializer(RealtySerializer):
         instance = super().update(instance, validated_data)
 
         for photo in photos:
-            photo_id = photos.pop(key='id')
+            photo_id = photo.pop(key='id')
             photo = RealtyPhoto.objects.get(id=photo_id)
             instance.photos.add(photo)
         return instance
@@ -87,7 +87,7 @@ class BuildingSerializer(RealtySerializer):
         instance = super().update(instance, validated_data)
 
         for photo in photos:
-            photo_id = photos.pop(key='id')
+            photo_id = photo.pop(key='id')
             photo = RealtyPhoto.objects.get(id=photo_id)
             instance.photos.add(photo)
         return instance

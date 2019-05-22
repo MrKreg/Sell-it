@@ -29,6 +29,3 @@ class RealtyPhotoViewSet(mixins.CreateModelMixin, mixins.DestroyModelMixin,
                          viewsets.GenericViewSet):
     queryset = RealtyPhoto.objects.all()
     serializer_class = RealtyPhotoSerializer
-
-    def destroy(self, request, *args, **kwargs):
-        return super().destroy(request, *args, **kwargs)
