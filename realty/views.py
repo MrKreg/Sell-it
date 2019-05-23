@@ -39,6 +39,8 @@ class LikedRealtyViewSet(mixins.UpdateModelMixin, mixins.DestroyModelMixin,
                          mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Realty.objects.all()
     serializer_class = RealtyListPolymorphicSerializer
+    filterset_class = RealtyFilter
+    pagination_class = RealtyPagination
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
