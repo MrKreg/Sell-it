@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from realty.filters import RealtyFilter
 from realty.models import Realty, RealtyPhoto
-from realty.pagination import RealtyPagination
+from Sell_it.pagination import DefaultPagination
 from realty.serializers import (RealtyPolymorphicSerializer,
                                 RealtyListPolymorphicSerializer,
                                 RealtyPhotoSerializer)
@@ -15,7 +15,7 @@ class RealtyViewSet(viewsets.ModelViewSet):
     queryset = Realty.objects.all()
     serializer_class = RealtyPolymorphicSerializer
     filterset_class = RealtyFilter
-    pagination_class = RealtyPagination
+    pagination_class = DefaultPagination
 
     def get_queryset(self):
         return Realty.objects.filter(
@@ -40,7 +40,7 @@ class LikedRealtyViewSet(mixins.UpdateModelMixin, mixins.DestroyModelMixin,
     queryset = Realty.objects.all()
     serializer_class = RealtyListPolymorphicSerializer
     filterset_class = RealtyFilter
-    pagination_class = RealtyPagination
+    pagination_class = DefaultPagination
 
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
