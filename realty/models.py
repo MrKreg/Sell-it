@@ -18,13 +18,16 @@ class Realty(PolymorphicModel):
     area = models.PositiveIntegerField()
     flooring = models.PositiveIntegerField(validators=(MaxValueValidator(100),))
     rooms = models.PositiveIntegerField(validators=(MaxValueValidator(100),))
-    owner_phone = PhoneField()
+    owner_phone = PhoneField(unique=False)
     owner_name = models.CharField(max_length=50)
     offer = models.CharField(max_length=10, choices=OFFER_TYPES_CHOICE)
+    date = models.DateTimeField(auto_now=True)
     creator = models.ForeignKey('users.User', on_delete=models.CASCADE,
                                 null=True, blank=True)
     link = models.URLField(max_length=2000, unique=True, db_index=True,
                            null=True, blank=True)
+    identity = models.CharField(max_length=10, unique=True, null=True,
+                                blank=True)
 
     def __str__(self):
         return self.title[:TRUNCATE_CHARS]
@@ -42,6 +45,5 @@ class Building(Realty):
 
 class RealtyPhoto(models.Model):
     photo = models.ImageField(upload_to='realty_img')
-    realty = models.ForeignKey('Realty',
-                               related_name='photos',
-                               on_delete=models.CASCADE)
+    realty = models.ForeignKey('Realty', related_name='photos',
+                               on_delete=models.CASCADE, null=True, blank=True)

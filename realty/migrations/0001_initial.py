@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('area', models.PositiveIntegerField()),
                 ('flooring', models.PositiveIntegerField(validators=[django.core.validators.MaxValueValidator(100)])),
                 ('rooms', models.PositiveIntegerField(validators=[django.core.validators.MaxValueValidator(100)])),
-                ('owner_phone', Sell_it.fields.PhoneField(db_index=True, max_length=14, unique=True)),
+                ('owner_phone', Sell_it.fields.PhoneField(db_index=True, max_length=14, unique=False)),
                 ('owner_name', models.CharField(max_length=50)),
                 ('offer', models.CharField(choices=[('Rent', 'Rent'), ('Sale', 'Sale')], max_length=10)),
                 ('type', models.CharField(choices=[('Apt', 'Apartment'), ('Bldg', 'Building')], max_length=15)),
