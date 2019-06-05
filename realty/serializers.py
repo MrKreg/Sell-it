@@ -102,7 +102,7 @@ class RealtyPolymorphicSerializer(PolymorphicSerializer):
 
 
 class RealtyListSerializer(serializers.ModelSerializer):
-    photo = RealtyPhotoSerializer()
+    photo = serializers.SerializerMethodField()
     liked = serializers.SerializerMethodField()
 
     class Meta:
@@ -113,6 +113,12 @@ class RealtyListSerializer(serializers.ModelSerializer):
 
     def get_liked(self, obj):
         return obj.user_set.filter(id=self.context['request'].user.id).exists()
+
+    def get_photo(self, obj):
+        request = self.context.get('request')
+        photo_obj = obj.photos.first()
+        return request.build_absolute_uri(
+            photo_obj.photo.url) if photo_obj is not None else None
 
 
 class RealtyListPolymorphicSerializer(PolymorphicSerializer):
