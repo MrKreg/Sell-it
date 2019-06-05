@@ -1,10 +1,11 @@
+import sys
 from django.db.models import Q
 from rest_framework import viewsets, status
 from rest_framework import mixins
 from rest_framework.response import Response
 
 from realty.filters import RealtyFilter
-from realty.models import Realty, RealtyPhoto
+from realty.models import Realty, RealtyPhoto, Apartment, Building
 from Sell_it.pagination import DefaultPagination
 from realty.serializers import (RealtyPolymorphicSerializer,
                                 RealtyListPolymorphicSerializer,
@@ -20,6 +21,18 @@ class RealtyViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Realty.objects.filter(
             Q(creator=self.request.user) | Q(link__isnull=False))
+
+    def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
+        kind = self.request.query_params.get('kind')
+        floor_lte = self.request.query_params.get('floor__lte')
+        floor_gte = self.request.query_params.get('floor__gte')
+        queryset = queryset.instance_of(eval(kind)) if kind else queryset
+        queryset = queryset.filter(
+            apartment__floor__lte=floor_lte) if floor_lte else queryset
+        queryset = queryset.filter(
+            apartment__floor__gte=floor_gte) if floor_gte else queryset
+        return queryset
 
     def list(self, request, *args, **kwargs):
         self.serializer_class = RealtyListPolymorphicSerializer
