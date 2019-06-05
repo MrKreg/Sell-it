@@ -4,7 +4,8 @@ from rest_framework import serializers
 
 from users.fields import PasswordField, UniqueEmailField
 
-__all__ = ['AccountSerializer', 'SignUpSerializer', 'ProfileSerializer']
+__all__ = ['AccountSerializer', 'SignUpSerializer', 'ProfileSerializer',
+           'UserListSerializer', ]
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -23,7 +24,9 @@ class AccountSerializer(serializers.ModelSerializer):
 class SignUpSerializer(AccountSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email', 'phone', 'password',)
+        fields = (
+            'username', 'first_name', 'last_name', 'email', 'phone', 'gender',
+            'password',)
 
 
 class ProfileSerializer(AccountSerializer):
@@ -32,3 +35,9 @@ class ProfileSerializer(AccountSerializer):
         fields = (
             'username', 'email', 'first_name', 'last_name', 'phone',
             'birth_date', 'gender', 'image')
+
+
+class UserListSerializer(AccountSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'first_name', 'last_name', 'phone', 'image')
