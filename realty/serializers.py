@@ -102,12 +102,14 @@ class RealtyPolymorphicSerializer(PolymorphicSerializer):
 
 
 class RealtyListSerializer(serializers.ModelSerializer):
+    photo = RealtyPhotoSerializer()
     liked = serializers.SerializerMethodField()
 
     class Meta:
         model = Realty
         fields = (
-            'id', 'title', 'description', 'price', 'currency', 'offer', 'liked')
+            'id', 'title', 'description', 'price', 'currency', 'offer', 'photo',
+            'liked')
 
     def get_liked(self, obj):
         return obj.user_set.filter(id=self.context['request'].user.id).exists()
