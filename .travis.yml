@@ -1,0 +1,28 @@
+dist: trusty
+
+language: python
+python:
+  - "3.6"
+
+addons:
+  sonarcloud:
+    organization: "$ORGANIZATION"
+    token:
+      secure: "$SONAR_TOKEN"
+
+env:
+  - DJANGO_SETTINGS_MODULE='Sell_it.settings'
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - ./scripts/build.sh || travis_terminate 1;
+  - sonar-scanner
+
+notifications:
+  email:
+    recipients:
+      - taras.sheketa@gmail.com
+    on_success: always
+    on_failure: always

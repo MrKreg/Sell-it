@@ -1,0 +1,30 @@
+[
+	{
+		"model" : "auth.Group",
+		"pk" : 1,
+		"fields" : {
+			"name" : "Guest"
+		}
+	},
+	{
+		"model" : "auth.Group",
+		"pk" : 2,
+		"fields" : {
+			"name" : "Realtor"
+		}
+	},
+	{
+		"model" : "auth.Group",
+		"pk" : 3,
+		"fields" : {
+			"name" : "Boss"
+		}
+	},
+	{
+		"model" : "auth.Group",
+		"pk" : 4,
+		"fields" : {
+			"name" : "Admin"
+		}
+	}
+]
