@@ -27,11 +27,12 @@ class ProfileView(generics.RetrieveUpdateAPIView):
         return self.request.user
 
 
-class UsersViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class UsersViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
+                   viewsets.GenericViewSet):
     serializer_class = UserListSerializer
     filterset_class = UserFilter
     pagination_class = DefaultPagination
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
     def get_queryset(self):
         queryset = User.objects.exclude(id=self.request.user.id)
@@ -39,7 +40,7 @@ class UsersViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
 
 class UsernameExistsView(generics.RetrieveAPIView):
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
         if get_user_model().objects.filter(
