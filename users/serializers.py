@@ -40,4 +40,4 @@ class ProfileSerializer(AccountSerializer):
 class UserListSerializer(AccountSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('email', 'first_name', 'last_name', 'phone', 'image')
+        fields = ('id', 'email', 'first_name', 'last_name', 'phone', 'image')
