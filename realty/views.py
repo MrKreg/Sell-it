@@ -1,7 +1,6 @@
-import sys
 from django.db.models import Q
-from rest_framework import viewsets, status
-from rest_framework import mixins
+from rest_framework import viewsets, status, mixins, generics
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from realty.filters import RealtyFilter
@@ -17,6 +16,7 @@ class RealtyViewSet(viewsets.ModelViewSet):
     serializer_class = RealtyPolymorphicSerializer
     filterset_class = RealtyFilter
     pagination_class = DefaultPagination
+    permission_classes = (AllowAny, )
 
     def get_queryset(self):
         return Realty.objects.filter(
@@ -76,3 +76,12 @@ class LikedRealtyViewSet(mixins.UpdateModelMixin, mixins.DestroyModelMixin,
         instance = self.get_object()
         instance.user_set.remove(request.user)
         return Response(status=status.HTTP_200_OK)
+
+
+class UserRealtyListView(generics.ListAPIView):
+    serializer_class = RealtyListPolymorphicSerializer
+    pagination_class = DefaultPagination
+    permission_classes = (AllowAny, )
+
+    def get_queryset(self):
+        return Realty.objects.filter(creator=self.kwargs.get(self.lookup_field))

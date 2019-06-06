@@ -24,7 +24,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args,
         'current_user': reset_password_token.user,
         'username': reset_password_token.user.username,
         'email': reset_password_token.user.email,
-        'reset_password_url': "127.0.0.1:8000{}?token={}".format(
+        'reset_password_url': "http://sell-it-app.herokuapp.com/{}?token={}".format(
             reverse('password_reset:reset-password-confirm'),
             reset_password_token.key)
     }
