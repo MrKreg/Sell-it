@@ -12,13 +12,14 @@ from realty.serializers import (RealtyPolymorphicSerializer,
 
 
 class RealtyViewSet(viewsets.ModelViewSet):
-    queryset = Realty.objects.all()
     serializer_class = RealtyPolymorphicSerializer
     filterset_class = RealtyFilter
     pagination_class = DefaultPagination
-    permission_classes = (AllowAny, )
 
     def get_queryset(self):
+        if self.action == 'retrieve':
+            self.permission_classes = (AllowAny, )
+            return Realty.objects.all()
         return Realty.objects.filter(
             Q(creator=self.request.user) | Q(link__isnull=False))
 
