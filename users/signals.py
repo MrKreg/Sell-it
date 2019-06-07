@@ -1,7 +1,6 @@
 from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
 from django.template.loader import render_to_string
-from django.urls import reverse
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
@@ -24,9 +23,8 @@ def password_reset_token_created(sender, instance, reset_password_token, *args,
         'current_user': reset_password_token.user,
         'username': reset_password_token.user.username,
         'email': reset_password_token.user.email,
-        'reset_password_url': "http://sell-it-app.herokuapp.com/{}?token={}".format(
-            reverse('password_reset:reset-password-confirm'),
-            reset_password_token.key)
+        'reset_password_url': f'http://sell-it-app.herokuapp.com/'
+        f'confirm-password/?token={reset_password_token.key}',
     }
 
     # render email text
