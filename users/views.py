@@ -30,12 +30,13 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 class UsersViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
                    viewsets.GenericViewSet):
     queryset = User.objects.all()
-    serializer_class = UserListSerializer
+    serializer_class = ProfileSerializer
     filterset_class = UserFilter
     pagination_class = DefaultPagination
     permission_classes = (AllowAny,)
 
     def list(self, request, *args, **kwargs):
+        self.serializer_class = UserListSerializer
         self.queryset = User.objects.exclude(pk=request.user.pk)
         return super().list(request, *args, **kwargs)
 
