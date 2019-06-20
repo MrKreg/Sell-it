@@ -1,6 +1,6 @@
 from django.db.models import Q
 from rest_framework import viewsets, status, mixins, generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from realty.filters import RealtyFilter
@@ -8,7 +8,9 @@ from realty.models import Realty, RealtyPhoto, Apartment, Building
 from Sell_it.pagination import DefaultPagination
 from realty.serializers import (RealtyPolymorphicSerializer,
                                 RealtyListPolymorphicSerializer,
-                                RealtyPhotoSerializer)
+                                RealtyPhotoSerializer, ShareSerializer,
+                                RealtySerializer)
+from users.models import ShareInfo
 
 
 class RealtyViewSet(viewsets.ModelViewSet):
@@ -86,3 +88,29 @@ class UserRealtyListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Realty.objects.filter(creator=self.kwargs.get(self.lookup_field))
+
+
+class SharedRealtyViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin,
+                          viewsets.GenericViewSet):
+    queryset = ShareInfo.objects.all()
+    serializer_class = RealtyPolymorphicSerializer
+    permission_classes = (IsAuthenticated, )
+
+    def create(self, request, *args, **kwargs):
+        self.serializer_class = ShareSerializer
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        response_data = {'uuid': serializer.instance.pk}
+        return Response(response_data, status=status.HTTP_201_CREATED,
+                        headers=headers)
+
+    def retrieve(self, request, *args, **kwargs):
+        share = ShareInfo.objects.get(pk=self.kwargs.get('pk'))
+        instance = Realty.objects.get(pk=share.realty.pk)
+        serializer = RealtyPolymorphicSerializer(instance,
+                                      context=self.get_serializer_context())
+        serializer.instance.owner_phone = share.sender.phone
+        serializer.instance.owner_name = share.sender.first_name
+        return Response(serializer.data)

@@ -3,6 +3,7 @@ from rest_framework import serializers
 from rest_polymorphic.serializers import PolymorphicSerializer
 
 from realty.models import Apartment, Building, Realty, RealtyPhoto
+from users.models import ShareInfo
 
 
 class RealtyPhotoSerializer(serializers.ModelSerializer):
@@ -127,3 +128,15 @@ class RealtyListPolymorphicSerializer(PolymorphicSerializer):
         Apartment: RealtyListSerializer,
         Building: RealtyListSerializer,
     }
+
+
+class ShareSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShareInfo
+        fields = ['realty', ]
+
+    def create(self, validated_data):
+        realty = validated_data.pop('realty')
+        sender = self.context.get('request').user
+        share = ShareInfo.objects.create(sender=sender, realty=realty, )
+        return share
