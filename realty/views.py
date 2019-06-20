@@ -17,6 +17,7 @@ class RealtyViewSet(viewsets.ModelViewSet):
     serializer_class = RealtyPolymorphicSerializer
     filterset_class = RealtyFilter
     pagination_class = DefaultPagination
+    permission_classes = (AllowAny, )
 
     def get_queryset(self):
         if self.action == 'retrieve':
